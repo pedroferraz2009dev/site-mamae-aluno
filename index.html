@@ -2,87 +2,400 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Parábens mamis</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Homenagem | Parabéns Mamãe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none; /* evita seleção acidental ao clicar na foto */
+        }
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+        body {
+            background: linear-gradient(145deg, #fce4ec 0%, #f8bbd0 100%);
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', 'Poppins', 'Roboto', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+            padding: 1.5rem;
+        }
 
-    body {
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #ffe6f0;
-      font-family: Arial, Helvetica, sans-serif;
-    }
+        /* container principal: centralização vertical/horizontal + responsividade */
+        .card {
+            background: rgba(255, 248, 245, 0.92);
+            backdrop-filter: blur(2px);
+            border-radius: 3rem;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+            padding: 2rem 2rem 2.2rem 2rem;
+            width: 100%;
+            max-width: 650px;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
 
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-    }
+        /* TÍTULO principal */
+        .titulo {
+            font-size: clamp(2rem, 8vw, 3.8rem);
+            font-weight: 800;
+            color: #b83b5e;
+            text-shadow: 3px 3px 0 #ffd9e6;
+            letter-spacing: -0.5px;
+            margin-bottom: 1.25rem;
+            word-break: keep-all;
+            background: linear-gradient(135deg, #b83b5e, #e76f9a);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: none;
+            display: inline-block;
+            padding-bottom: 6px;
+        }
 
-    h1 {
-      font-size: 3rem;
-      color: #ff4081;
-      text-align: center;
-    }
+        /* decoração extra sutil */
+        .titulo::after {
+            content: "🎀";
+            font-size: 2rem;
+            background: none;
+            -webkit-background-clip: unset;
+            background-clip: unset;
+            color: #e76f9a;
+            margin-left: 12px;
+            display: inline-block;
+            vertical-align: middle;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        .titulo::before {
+            content: "🌸";
+            font-size: 2rem;
+            background: none;
+            -webkit-background-clip: unset;
+            color: #e76f9a;
+            margin-right: 12px;
+            display: inline-block;
+            vertical-align: middle;
+        }
 
-    img {
-      width: 300px;
-      max-width: 90vw;
-      border-radius: 20px;
-      cursor: pointer;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-      transition: transform 0.3s ease;
-    }
+        /* container da foto: efeito carinho */
+        .foto-container {
+            margin: 1rem 0 0.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            border-radius: 2rem;
+            transition: transform 0.2s ease, box-shadow 0.2s;
+        }
 
-    img:hover {
-      transform: scale(1.03);
-    }
-  </style>
+        .foto-container:active {
+            transform: scale(0.98);
+        }
+
+        /* imagem responsiva, bonita e com efeito de clique */
+        .foto-mamae {
+            max-width: 100%;
+            width: auto;
+            height: auto;
+            max-height: 450px;
+            object-fit: cover;
+            border-radius: 2rem;
+            box-shadow: 0 18px 30px -8px rgba(0, 0, 0, 0.3), 0 0 0 4px white, 0 0 0 8px #ffb7c5;
+            transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            background: #ffe7ef;
+        }
+
+        /* efeito sutil ao passar mouse (desktop) */
+        .foto-container:hover .foto-mamae {
+            box-shadow: 0 22px 35px -10px rgba(0, 0, 0, 0.4), 0 0 0 4px #fff, 0 0 0 8px #ff9eb0;
+            filter: brightness(1.01) contrast(1.02);
+        }
+
+        /* legenda interativa */
+        .legenda {
+            margin-top: 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #a13e5c;
+            background: #fff0f3c9;
+            display: inline-block;
+            padding: 0.5rem 1.2rem;
+            border-radius: 60px;
+            backdrop-filter: blur(2px);
+            font-style: italic;
+            letter-spacing: 0.3px;
+            transition: 0.1s;
+        }
+
+        .legenda span {
+            font-weight: 700;
+            color: #c4456b;
+            display: inline-block;
+            animation: gentlePulse 1.2s infinite ease;
+        }
+
+        @keyframes gentlePulse {
+            0% { opacity: 0.7; transform: scale(1);}
+            50% { opacity: 1; transform: scale(1.02);}
+            100% { opacity: 0.7; transform: scale(1);}
+        }
+
+        /* mensagem de carinho pequena */
+        .mensagem-carinho {
+            margin-top: 1.8rem;
+            font-size: 0.9rem;
+            color: #9b4b67;
+            background: rgba(255, 240, 245, 0.8);
+            padding: 0.5rem 1rem;
+            border-radius: 3rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(4px);
+        }
+
+        /* responsividade total */
+        @media (max-width: 550px) {
+            .card {
+                padding: 1.5rem 1.2rem 1.8rem;
+            }
+            .foto-mamae {
+                max-height: 350px;
+                border-radius: 1.5rem;
+            }
+            .titulo::before, .titulo::after {
+                font-size: 1.6rem;
+            }
+            .legenda {
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .foto-mamae {
+                max-height: 280px;
+            }
+        }
+
+        /* acessibilidade e foco */
+        .foto-container:focus-visible {
+            outline: 3px solid #b83b5e;
+            outline-offset: 6px;
+            border-radius: 2rem;
+        }
+        button, div[tabindex] {
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 
-  <div class="container">
-    <h1>Parábens mamis</h1>
+<div class="card">
+    <!-- título principal -->
+    <h1 class="titulo">Parabéns mamãe</h1>
 
-    <img 
-      id="foto" 
-      src="fotos/f1.jpg" 
-      alt="Foto"
-    />
-  </div>
+    <!-- área da foto: clicável, centralizada -->
+    <div class="foto-container" id="fotoContainer" role="button" tabindex="0" aria-label="Clique na foto para mudar a imagem, homenagem para mamãe">
+        <img id="fotoDinamica" class="foto-mamae" src="fotos/f1.jpg" alt="Foto da mamãe - clique para alternar imagens especiais">
+    </div>
 
-  <script>
-    const fotos = [
-      "fotos/f1.jpg",
-      "fotos/f2.jpg",
-      "fotos/f3.jpg"
-    ];
+    <!-- legenda interativa que mostra a imagem atual -->
+    <div class="legenda">
+        💖 <span id="contadorLegenda">f1.jpg</span> 💖
+    </div>
+    
+    <div class="mensagem-carinho">
+        🌸 Clique na foto para ver mais memórias 🌸
+    </div>
+</div>
 
-    let indice = 0;
-
-    const imagem = document.getElementById("foto");
-
-    imagem.addEventListener("click", () => {
-      indice++;
-
-      if (indice >= fotos.length) {
-        indice = 0;
-      }
-
-      imagem.src = fotos[indice];
-    });
-  </script>
-
+<script>
+    (function() {
+        // --------------------------------------------------------------
+        // Lista de fotos conforme a pasta "fotos/" com os nomes fornecidos
+        // f1.jpg , f2.jpg , f3.jpg
+        // Caso deseje expandir no futuro, basta adicionar os nomes no array.
+        // --------------------------------------------------------------
+        const listaFotos = [
+            "fotos/f1.jpg",
+            "fotos/f2.jpg",
+            "fotos/f3.jpg"
+        ];
+        
+        // Nomes amigáveis para exibição na legenda (opcional, mas elegante)
+        const nomesExibicao = {
+            "fotos/f1.jpg": "✨ Momento especial 1 ✨",
+            "fotos/f2.jpg": "💐 Sorriso mais lindo 💐",
+            "fotos/f3.jpg": "🌟 Carinho eterno 🌟"
+        };
+        
+        // fallback: se o arquivo não tiver descrição personalizada, mostra o nome do arquivo
+        function obterNomeAmigavel(caminhoFoto) {
+            if (nomesExibicao[caminhoFoto]) {
+                return nomesExibicao[caminhoFoto];
+            }
+            // extrai apenas o nome do arquivo ex: "f1.jpg"
+            const partes = caminhoFoto.split('/');
+            const nomeArquivo = partes[partes.length - 1];
+            return nomeArquivo;
+        }
+        
+        // elementos do DOM
+        const imgElement = document.getElementById('fotoDinamica');
+        const legendaSpan = document.getElementById('contadorLegenda');
+        const container = document.getElementById('fotoContainer');
+        
+        // controle do índice atual (inicia em 0 -> f1.jpg)
+        let indiceAtual = 0;          // 0 = f1.jpg, 1 = f2.jpg, 2 = f3.jpg
+        
+        // Pré-carrega as imagens para evitar delays e garantir fluidez na troca
+        // Isso também ajuda a testar se as imagens existem, mas sem quebrar a experiência.
+        // Vamos apenas pré-carregar silenciosamente.
+        function preCarregarImagens() {
+            listaFotos.forEach((src) => {
+                const imgTemp = new Image();
+                imgTemp.src = src;
+                // opcional: se por acaso alguma imagem nao existir, não causa erro ruidoso
+                imgTemp.onerror = () => {
+                    console.warn(`Atenção: a imagem ${src} não foi encontrada na pasta /fotos. Verifique se o arquivo existe.`);
+                    // Não quebramos a aplicação, apenas alertamos no console.
+                };
+            });
+        }
+        
+        // função para atualizar a foto e a legenda baseado no índice atual
+        function atualizarFoto() {
+            const caminhoFoto = listaFotos[indiceAtual];
+            if (!caminhoFoto) {
+                // fallback de segurança, caso algo dê errado
+                console.error("Índice fora do esperado, reiniciando para 0");
+                indiceAtual = 0;
+                atualizarFoto();
+                return;
+            }
+            
+            // Atualiza o src da imagem principal
+            imgElement.src = caminhoFoto;
+            
+            // Atualiza o texto da legenda com nome amigável ou nome do arquivo
+            const displayName = obterNomeAmigavel(caminhoFoto);
+            legendaSpan.innerHTML = displayName;
+            
+            // Efeito visual extra: pequena animação de "brilho" ao trocar a foto
+            // Adiciona uma transição sutil de opacidade para dar feedback ao clique
+            imgElement.style.transition = "opacity 0.12s ease";
+            imgElement.style.opacity = "0.85";
+            setTimeout(() => {
+                imgElement.style.opacity = "1";
+            }, 70);
+            
+            // Opcional: Acessibilidade: anuncia sutilmente a troca (para leitores de tela)
+            // apenas boas práticas
+            const anuncio = document.createElement('div');
+            anuncio.setAttribute('aria-live', 'polite');
+            anuncio.classList.add('sr-only');
+            anuncio.style.position = 'absolute';
+            anuncio.style.left = '-9999px';
+            anuncio.innerText = `Foto alterada para ${displayName}`;
+            document.body.appendChild(anuncio);
+            setTimeout(() => {
+                document.body.removeChild(anuncio);
+            }, 1000);
+        }
+        
+        // Função para avançar para a próxima foto (circular)
+        function proximaFoto() {
+            // incrementa índice circularmente (0 -> 1 -> 2 -> 0)
+            indiceAtual = (indiceAtual + 1) % listaFotos.length;
+            atualizarFoto();
+        }
+        
+        // Função para foto anterior (caso queira futuramente, mas mantemos apenas clique para próxima)
+        // mas o requisito pede: "alterada quando acontecer um clique nela". Cada clique altera sequencialmente (f1->f2->f3->f1...)
+        // Isso atende perfeitamente e dá sensação de album.
+        
+        // Evento de clique na foto (no container ou na imagem diretamente)
+        // Garantimos que qualquer clique na área da foto dispare a troca
+        const handleClick = (e) => {
+            // Pequeno feedback háptico? opcional, apenas visual
+            e.stopPropagation();  // sem conflitos
+            proximaFoto();
+            
+            // Adicionar um efeito de "pulse" no container (feedback divertido)
+            const fotoDiv = document.querySelector('.foto-container');
+            if (fotoDiv) {
+                fotoDiv.style.transform = 'scale(0.99)';
+                setTimeout(() => {
+                    if (fotoDiv) fotoDiv.style.transform = '';
+                }, 120);
+            }
+        };
+        
+        // Adiciona os eventos de clique tanto na imagem quanto no container
+        // Para maior robustez, ambos disparam a mesma ação (sem duplicar)
+        imgElement.addEventListener('click', handleClick);
+        container.addEventListener('click', handleClick);
+        
+        // Suporte a tecla Enter / Espaço para acessibilidade ( role="button" )
+        container.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                handleClick(event);
+            }
+        });
+        
+        // Pré-carregar todas as imagens para experiência fluida
+        preCarregarImagens();
+        
+        // Verificação inicial se a primeira foto existe, caso contrário uma mensagem amigável no console
+        // mas não bloqueia a experiência; apenas garante que se alguma imagem não estiver disponível
+        // o usuário pode ver o "broken image", mas a funcionalidade de troca continuará.
+        // Melhor ainda, se alguma imagem estiver com problema, no pré-carregamento já mostra warning.
+        // Também vamos adicionar um listener de erro na imagem principal, para informar caso a primeira foto esteja ausente.
+        imgElement.onerror = () => {
+            console.error(`Não foi possível carregar a imagem: ${imgElement.src}. Verifique se a pasta "fotos" existe e contém os arquivos f1.jpg, f2.jpg, f3.jpg.`);
+            // Exibe uma mensagem sutil na legenda, sem quebrar a página, mas com carinho
+            legendaSpan.innerHTML = "💗 foto não encontrada? 💗<br><small>verifique a pasta /fotos</small>";
+            // dá um tempo e tenta restaurar? melhor apenas indicar.
+        };
+        
+        // reset do erro ao trocar de imagem (caso alguma imagem específica esteja com erro, limpa a msg)
+        imgElement.addEventListener('load', () => {
+            // Se carregar normalmente, a legenda já foi atualizada pela função atualizarFoto
+            // mas caso a legenda tenha sido sobrescrita pelo onerror, restauramos:
+            if (legendaSpan.innerHTML.includes("não encontrada")) {
+                const caminho = listaFotos[indiceAtual];
+                if (caminho) legendaSpan.innerHTML = obterNomeAmigavel(caminho);
+            }
+        });
+        
+        // Inicialização da primeira foto: força atualização garantindo exibição inicial
+        // mas como já está definida a src no HTML para 'fotos/f1.jpg', nós sincronizamos o índice.
+        // No entanto, se o HTML estiver com src="fotos/f1.jpg", nosso índiceAtual = 0 corresponde a f1.
+        // Mas para segurança, garantimos que a imagem carregada confere com o índice 0 e atualizamos legenda.
+        // Além disso, garante que a propriedade da legenda exiba o nome amigável desde o começo.
+        (function sincronizarEstadoInicial() {
+            // Força a sincronização baseada no índice 0 (f1.jpg) porque a lista tem o caminho "fotos/f1.jpg"
+            const primeiraFotoEsperada = listaFotos[0];
+            if (imgElement.src && !imgElement.src.includes(primeiraFotoEsperada)) {
+                // Se por acaso a imagem no html for diferente (improvável), corrigimos
+                imgElement.src = primeiraFotoEsperada;
+            }
+            // Atualiza legenda com descrição amigável da foto inicial
+            const caminhoInicial = listaFotos[0];
+            legendaSpan.innerHTML = obterNomeAmigavel(caminhoInicial);
+            // também adiciona atributo alt significativo
+            imgElement.alt = "Foto da mamãe - clique para navegar pelas lembranças";
+        })();
+        
+        // pequeno detalhe: controle de duplo clique acidental não causa problemas
+        // além disso, fornece background suave
+        
+        // --- APENAS PARA DEBUG GENTIL (caso queira ver o array no console) ---
+        console.log("✨ Álbum de fotos carregado! Clique na imagem para alternar entre: ", listaFotos.map(p => p.split('/').pop()).join(', '));
+    })();
+</script>
 </body>
 </html>
