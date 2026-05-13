@@ -1,3 +1,88 @@
-<html>
-    <h1>Meu nominho é Pedro Henrique Ferraz da Silva</h1>
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Parábens mamis</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #ffe6f0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: #ff4081;
+      text-align: center;
+    }
+
+    img {
+      width: 300px;
+      max-width: 90vw;
+      border-radius: 20px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease;
+    }
+
+    img:hover {
+      transform: scale(1.03);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Parábens mamis</h1>
+
+    <img 
+      id="foto" 
+      src="fotos/f1.jpg" 
+      alt="Foto"
+    />
+  </div>
+
+  <script>
+    const fotos = [
+      "fotos/f1.jpg",
+      "fotos/f2.jpg",
+      "fotos/f3.jpg"
+    ];
+
+    let indice = 0;
+
+    const imagem = document.getElementById("foto");
+
+    imagem.addEventListener("click", () => {
+      indice++;
+
+      if (indice >= fotos.length) {
+        indice = 0;
+      }
+
+      imagem.src = fotos[indice];
+    });
+  </script>
+
+</body>
 </html>
